@@ -22,11 +22,6 @@ func GetFiles(nzb *Nzb) []File {
 	return nzb.Files
 }
 
-//Retrieves a file's name.
-func FileName(file *File) string {
-	return file.Subject
-}
-
 //Retrieves file's group name/s.
 func GroupName(file *File) []string {
 	return file.Groups

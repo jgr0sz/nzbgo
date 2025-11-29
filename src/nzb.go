@@ -39,7 +39,7 @@ func FromFile(path string) (*Nzb, error) {
 			return nil, err
 		}
 		defer gzReader.Close()
-		
+
 		//Bytes are read back into the file byte splice once decompressed
 		file, err = io.ReadAll(gzReader) 
 		if err != nil {
@@ -102,12 +102,12 @@ func Posters(nzb *Nzb) []string {
 	return postersSlice
 }
 
-//Retrieves the splice of unique filenames of an NZB's Files[] field.
+//Retrieves the splice of unique filenames of an NZB's Files[] field, if there were any found.
 func Filenames(nzb *Nzb) []string {
 	filenameSlice := []string{}
 	for _, f := range nzb.Files {
-		if (!slices.Contains(filenameSlice, f.Subject)) {
-			filenameSlice = append(filenameSlice, f.Subject)
+		if (ExtractFilename(f) != "") {
+			filenameSlice = append(filenameSlice, ExtractFilename(f))
 		}
 	}
 	return filenameSlice

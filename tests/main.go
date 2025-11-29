@@ -23,4 +23,11 @@ func main() {
 	for _, s := range nzb.Files {
 		fmt.Printf("File date: %s\n", src.DatePosted(s).Format("2006-01-02 15:04:05"))
 	}
+
+	fmt.Printf("The filename of this NZB's first file is: %s\n", src.ExtractFilename(nzb.Files[0]))
+	filenames := src.Filenames(nzb)
+
+	for _, f := range filenames {
+		fmt.Printf("The full list of this NZB's filenames are: %s\n", f)
+	}
 }
