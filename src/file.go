@@ -136,7 +136,6 @@ func IsObfuscated(stem string) bool {
 	}
 
 	//Common unobfuscated patterns
-
 	//"Great Pretender"
 	if upperchars >= 2 && 
 	lowerchars >= 2 && 
@@ -163,4 +162,12 @@ func IsObfuscated(stem string) bool {
 		return false
 	}
 	return true
+}
+
+//Function that determines whether a file extension is present within a filename or not. Case and dot insensitive.
+func HasExtension(file File, ext string) bool {
+	//Extracting a filename first, then acquiring the extension from splitting it
+	_, fileExtension := SplitFilename(ExtractFilename(file))
+	//Under case-folding, check if there is said extension within our filename.
+	return strings.EqualFold(fileExtension, strings.TrimPrefix(ext, "."))
 }
