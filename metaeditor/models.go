@@ -1,6 +1,7 @@
 package metaeditor
 
-//Our main editor struct holding NZB contents
+import "jgr0sz/nzbgo/parser"
+
 type NzbMetaEditor struct {
-	NzbContents string
+	Metadata []parser.Meta
 }

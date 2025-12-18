@@ -8,7 +8,7 @@ import (
 )
 
 //Compiled regexes for filename extraction/splitting/obfuscation checks.
-var EXTRACTION_PATTERNS = []*regexp.Regexp {
+var EXTRACTION_PATTERNS = [3]*regexp.Regexp {
 	regexp.MustCompile(`"(.*)"`),
 	//Modified the 2nd statement to best emulate Python's fullmatch(), (^...$) https://github.com/Ravencentric/nzb/blob/aa5d11dfed61b49b3b3ed5c00226b88fad7e591b/src/nzb/_subparsers.py#L35C7-L35C93
 	regexp.MustCompile(`^(?:\[|\()(?:\d+/\d+)(?:\]|\))\s-\s(.*)\syEnc\s(?:\[|\()(?:\d+/\d+)(?:\]|\))\s\d+$`),
@@ -18,7 +18,7 @@ var EXTRACTION_PATTERNS = []*regexp.Regexp {
 //Used for the splitting pattern between stem/extension
 var SPLITTING_PATTERN = *regexp.MustCompile(`(\.[a-z]\w{2,5})$`)
 
-var OBFUSCATION_PATTERNS = []*regexp.Regexp {
+var OBFUSCATION_PATTERNS = [5]*regexp.Regexp {
 	regexp.MustCompile(`^[a-f0-9]{32}$`), 
 	regexp.MustCompile(`^[a-f0-9.]{40,}$`),
 
@@ -101,6 +101,10 @@ func IsObfuscated(stem string) bool {
 
 	if OBFUSCATION_PATTERNS[2].FindString(stem) != "" && 
 	len(OBFUSCATION_PATTERNS[3].FindAllString(stem, -1)) >= 2 {
+		return true
+	}
+
+	if OBFUSCATION_PATTERNS[4].FindString(stem) != "" {
 		return true
 	}
 
