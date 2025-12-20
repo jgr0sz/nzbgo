@@ -19,6 +19,6 @@ func editorTest() {
 	
 	metaeditor.Append(editor, "password", "12345")
 	printEditor()
-	metaeditor.Clear(editor)
+	metaeditor.Remove(editor, "password")
 	printEditor()
 }

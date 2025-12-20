@@ -6,7 +6,7 @@ import (
 )
 
 func parserTest() {
-	nzb, err := parser.FromFile("tests/nzbs/big_buck_bunny.nzb")
+	nzb, err := parser.FromFile("tests/nzbs/parser_test.nzb")
 	if err != nil {
 		fmt.Printf("Error parsing NZB. %v\n", err)
 		return

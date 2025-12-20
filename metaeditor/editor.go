@@ -3,6 +3,7 @@ package metaeditor
 import (
 	"jgr0sz/nzbgo/parser"
 	"log"
+	"slices"
 	"strings"
 )
 
@@ -10,7 +11,7 @@ import (
 var metaNzb *parser.Nzb
 
 /*
-	Central set of functions for NZB metadata editing.
+	Central set of functions for NZB metadata editing. Note that operation 
 */
 
 //Takes and instantiates an NzbMetaEditor object from a file path.
@@ -40,7 +41,7 @@ func IsAttribute(attribute string) bool {
 	attribute == "title"
 }
 
-//Appends a metadata entry to an NzbMetaEditors's current splice of them.
+//Appends a metadata field to an NzbMetaEditors's current splice of them.
 func Append(editor *NzbMetaEditor, attribute string, content string) {
 	//After verifying our attribute, we append it as a new Meta object to the provided editor's splice.
 	if IsAttribute(attribute) {
@@ -51,7 +52,17 @@ func Append(editor *NzbMetaEditor, attribute string, content string) {
 	}
 }
 
-//Clears all metadata entries from an NzbMetaEditor.
+//Clears all metadata fields from an NzbMetaEditor.
 func Clear(editor *NzbMetaEditor) {
 	editor.Metadata = nil
+}
+
+//Removes a specified metadata field from an NzbMetaEditor, as well as any duplicates it may have.
+func Remove(editor *NzbMetaEditor, attribute string) {
+	if IsAttribute(attribute) {
+		//Crafty function to efficiently remove located duplicates using a defined predicate func.
+		editor.Metadata = slices.DeleteFunc(editor.Metadata, func(m parser.Meta) bool {
+			return m.Type == attribute
+		})
+	}
 }
