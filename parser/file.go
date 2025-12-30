@@ -7,7 +7,7 @@ import (
 	"unicode"
 )
 
-//Compiled regexes for filename extraction/splitting/obfuscation checks.
+//Compiled regexes for filename extraction.
 var EXTRACTION_PATTERNS = [3]*regexp.Regexp {
 	regexp.MustCompile(`"(.*)"`),
 	//Modified the 2nd statement to best emulate Python's fullmatch(), (^...$) https://github.com/Ravencentric/nzb/blob/aa5d11dfed61b49b3b3ed5c00226b88fad7e591b/src/nzb/_subparsers.py#L35C7-L35C93
@@ -15,9 +15,10 @@ var EXTRACTION_PATTERNS = [3]*regexp.Regexp {
 	regexp.MustCompile(`\b([\w\-+()' .,]+(?:\[[\w\-/+()' .,]*][\w\-+()' .,]*)*\.[A-Za-z0-9]{2,4})\b`),
 }
 
-//Used for the splitting pattern between stem/extension
+//Compiled regex for the splitting pattern between stem/extension.
 var SPLITTING_PATTERN = *regexp.MustCompile(`(\.[a-z]\w{2,5})$`)
 
+//Compiled regexes for stem-obfuscated patterns.
 var OBFUSCATION_PATTERNS = [5]*regexp.Regexp {
 	regexp.MustCompile(`^[a-f0-9]{32}$`), 
 	regexp.MustCompile(`^[a-f0-9.]{40,}$`),

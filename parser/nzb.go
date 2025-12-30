@@ -1,4 +1,4 @@
-// The parser package allows for the parsing of important kinds of information contained within an NZB.
+// Allows for the parsing of information used in an NZB file to reconstruct a remotely-hosted file.
 package parser
 
 import (

@@ -1,3 +1,5 @@
+// Allows for the idiomatic modification of NZB metadata fields, particularly useful when dealing with automated systems reliant on it.
+
 package metaeditor
 
 import (
